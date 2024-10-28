@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+        <header class="bg-dark py-5" style="background-image: url('https://cdn.prod.website-files.com/64a6644c2958e73937035816/664c40cb3a46351b4fd4ff0a_technological-3d-mock-up-cyber-monday-immersive-elements-shopping-cart-gift-boxes%201.webp');background-repeat: no-repeat;background-size: cover;">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shopping cart</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid" style="margin:10px">
+            {%if not cart_items %}
+                <div style="align-items: center;text-align: center;">
+                    <h4>Your cart is empty</h4>
+                    <a href="{% url 'index' %}" class="btn btn-secondary">Back to store</a>
+                </div>
+                
+            {% else %}
+                <div class="row"  >
+                    <div class="col-lg-9">
+                        <table class="table table-striped"  >
+                            <thead >
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col" class="text-center" width="200"></th>
+                                </tr>
+                            </thead>
+                
+                            <tbody>
+                                {% for cart_item in cart_items %}
+                                <tr>
+                                    <td>
+                                        <aside style="float: left;">
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img width="70px" height="70px" src="{{cart_item.product.image.url}}" class="img-sm"> </div>
+                                        </figure></aside>
+                                        <aside style="float: left;"><p class="aside"><b> Item:</b> {{cart_item.product.name}}<br/><b>Price:</b>{{cart_item.product.price}}</p></aside>
+                                        </td>
+                                    <td>
+                                        <div >
+                                            <div class="input-group input-spinner">
+                                                <div class="input-group-prepend">
+                                                    <a href="{% url 'delete_cart' cart_item.product.id %}" class="btn btn-outline-dark" type="button" id="button-minus"><i class="fa fa-minus"></i>-</a>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{cart_item.quantity}}" style="width: fit-content;max-width: 50px;text-align: center;" >
+                                                <div class="input-group-append">
+                                                    <a href="{% url 'add_cart' cart_item.product.id%}" class="btn btn-outline-dark" type="button" id="button-plus"><i class="fa fa-plus"></i>+</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{cart_item.sub_total}}</td>
+                                    <td><a href="{% url 'delete_cart_item' cart_item.product.id%}" class="btn btn-secondary">Remove</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-3"  >
+                        <div class="row g-2" style="border: 1px solid rgb(100, 97, 97);border-radius: 5px;color: rgb(160, 152, 152);margin-top: 5px;">
+
+                            <div class="col-6">
+                            <h5>Total price:</h5>
+                            <h5>Tax:</h5>
+                            <h5>Grand Total:</h5>
+                            </div>
+                
+                            <div class="col-6 status">
+                            <h5><span id="sub-total">{{total}}</span></h5>
+                            <h5><span id="tax-amount">{{tax}}</span></h5>
+                            <h5><span id="total-price">{{grand_total}}</span></h5>
+                            </div>
+                            
+                        </div>
+                        <a class="btn btn-secondary" href="#">Checkout</a>
+                    <div>
+                </div>
+            {% endif %}
+        </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>       
+
+{% endblock %}   
+        

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+        <header class="py-5" style="background-image: url('https://cdn.prod.website-files.com/64a6644c2958e73937035816/664c40cb3a46351b4fd4ff0a_technological-3d-mock-up-cyber-monday-immersive-elements-shopping-cart-gift-boxes%201.webp');background-repeat: no-repeat;background-size: cover;">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Categories</h1>
+                </div>
+            </div>
+        </header>
+
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for cat in category %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img src="{{cat.img.url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{cat.name}}</h5>
+                                <a href="{% url 'category' cat.name %}" class="btn btn-secondary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- <div class="container">
+            <div class="row">
+                <center>
+                    {% for cat in category %}
+                     <h3><a href="{% url 'category' cat.name %}">{{cat.name}}</a></h3>
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{cat.img.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{cat.name}}</h5>
+                          <a href="{% url 'category' cat.name %}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                    {% endfor%}
+                </center>
+            </div>
+
+        </div> -->
+
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{% endblock %}

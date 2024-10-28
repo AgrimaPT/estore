@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    header {
+        position: relative;
+        overflow: hidden; /* Ensures the overlay stays within the header */
+    }
+    .overlay {
+        position: absolute; /* Positioned relative to the nearest positioned ancestor (header) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0; /* Covers the entire header area */
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px);
+        z-index: 1; /* Behind the text */
+    }
+    
+    .container {
+        position: relative; /* Stays in the normal document flow, allowing layering */
+        z-index: 2; /* Above the overlay */
+    }
+    </style>
+
+        <header class=" py-5 position-relative">
+            <div class="overlay" style="background-image: url({{category.img.url}});"></div>
+            <div class="container px-4 px-lg-5 my-5 position-relative" >
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">{{category.name}}</h1>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in products %}
+                    {% if product.is_sale %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!--offer -->
+                            <p style="position: absolute; background: rgb(12, 12, 12);color: rgb(251, 250, 250);border-radius: 7px;">Offer!!!</p>
+                            <!-- Product image-->
+                            <img class="card-img-top" height="200px" width="100px" src="{{product.image.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{product.name}}</h5>
+                                    <!-- Product price-->
+                                     <strike>{{product.price}}</strike> {{product.sale_price}}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" height="200px" width="100px" src="{{product.image.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{product.name}}</h5>
+                                    <!-- Product price-->
+                                    {{product.price}}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+{% endblock %}
